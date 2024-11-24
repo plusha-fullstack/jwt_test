@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
+
+// МИНУС КОГДА НЕТ СВЕРКИ С БД! ДАННЫЕ МЕНЯЮТСЯ В БД А ТОКЕН ЕЩЕ ЖИВ И НЕ ОБНОВИЛСЯ!
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -33,6 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
             try {
+                // снизу в метод getUser name уже вшита проверка токена самим писать не надо!!
                 username = jwtTokenUtils.getUsername(jwt);
             } catch (ExpiredJwtException e) {
                 log.debug("Время жизни токена вышло");
@@ -41,6 +44,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            // UsernamePasswordAuthenticationToken это JWT ЭТО ШТУКА от СЕКЮРИТИ!!
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                     username,
                     null,

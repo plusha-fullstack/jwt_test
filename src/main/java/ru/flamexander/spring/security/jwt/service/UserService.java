@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// UserDetails is Spring Security Interface
 @Service
 public class UserService implements UserDetailsService {
     private UserRepository userRepository;
@@ -56,7 +57,9 @@ public class UserService implements UserDetailsService {
                 user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList())
         );
     }
+    // сверху где grant authorities это связывание спринговых ролей к нашим в БД
 
+    // здесь нет проверки на то что пользователь есть в базе или другие ошибки
     public User createNewUser(RegistrationUserDto registrationUserDto) {
         User user = new User();
         user.setUsername(registrationUserDto.getUsername());

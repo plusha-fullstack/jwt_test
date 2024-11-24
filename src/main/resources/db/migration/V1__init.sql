@@ -20,10 +20,13 @@ CREATE TABLE users_roles (
   foreign key (role_id) references roles (id)
 );
 
+//в спринге пишем ROLE_ префикс а в других файлах проекта нет !!
 insert into roles (name)
 values
 ('ROLE_USER'), ('ROLE_ADMIN');
 
+
+// пароли в инсерте взяты через B-crypt сразу
 insert into users (username, password, email)
 values
 ('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'user@gmail.com'),

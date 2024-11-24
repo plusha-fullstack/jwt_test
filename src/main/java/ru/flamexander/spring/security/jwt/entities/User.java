@@ -23,6 +23,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    // связывание ролей  с юзером!
     @ManyToMany
     @JoinTable(
             name = "users_roles",

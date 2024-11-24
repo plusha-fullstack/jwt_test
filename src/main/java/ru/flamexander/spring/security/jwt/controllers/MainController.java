@@ -24,6 +24,7 @@ public class MainController {
         return "Admin data";
     }
 
+    // Principal это текущей пользователь в контексте спринг секьюрити
     @GetMapping("/info")
     public String userData(Principal principal) {
         return principal.getName();
